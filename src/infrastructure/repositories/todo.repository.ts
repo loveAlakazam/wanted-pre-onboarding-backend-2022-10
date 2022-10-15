@@ -64,15 +64,12 @@ export class DatabaseTodoRepository implements TodoRepository {
     return this.toTodo(todoEntity);
   }
 
-  async updateIsDone(id: number, isDone: boolean): Promise<void> {
+  async updateContent(id: number, content: string): Promise<void> {
     // 디비에서 id에 해당하는 엔티티 찾고 -> 수정
-    const todoEntity = await this.todoEntityRepository.update(
-      { id: id },
-      { isDone: isDone },
-    );
+    await this.todoEntityRepository.update({ id: id }, { content: content });
   }
   async deleteById(id: number): Promise<void> {
     // 디비에서 id에 해당하는 엔티티 찾고 -> 삭제
-    const todoEntity = await this.todoEntityRepository.delete({ id: id });
+    await this.todoEntityRepository.delete({ id: id });
   }
 }

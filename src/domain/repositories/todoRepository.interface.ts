@@ -4,6 +4,6 @@ export interface TodoRepository {
   insert(todo: TodoModel): Promise<void>;
   findAll(): Promise<TodoModel[]>;
   findById(id: number): Promise<TodoModel>;
-  updateIsDone(id: number, isDone: boolean): Promise<void>;
+  updateContent(id: number, content: string): Promise<void>;
   deleteById(id: number): Promise<void>;
 }
