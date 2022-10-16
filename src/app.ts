@@ -14,27 +14,24 @@ app.use(helmet());
 app.use(cors());
 app.use(morgan('dev'));
 
-// mysql connect
-const connectDBHandler = async () => {
-  try {
-    await connectDB.authenticate();
-    console.log('✅ Connect Database Successfully');
-  } catch (error) {
-    console.log('❌ Connect Database Failed');
-    console.error(error);
-    exit(1);
-  }
-};
-
-connectDBHandler();
-
 // routers
 app.use(router);
 
 // app
 const port = configs.port;
 app
-  .listen(port, () => {
+  .listen(port, async () => {
+    // mysql connect
+    await connectDB
+      .authenticate()
+      .then(() => {
+        console.log('✅ Connect Database Successfully');
+      })
+      .catch((err) => {
+        console.log('❌ Connect Database Failed');
+        console.error(err);
+        exit(1);
+      });
     console.log(`Server listening on port at ${port}`);
   })
   .on('error', (err) => {
