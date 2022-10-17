@@ -28,19 +28,27 @@ export const createNewRecruit = async (param: createNewRecruitReq) => {
   return result;
 };
 
-export const updateRecruit = async (param: updateRecruitReq) => {
+export const updateRecruit = async (
+  updated: updateRecruitReq,
+  r_id: number,
+) => {
   // 수정할 채용공고
-  // const ur = new Recruit();
-  // ur.position = param.position;
-  // ur.bonusMoney = param.position;
+  await recruits
+    .createQueryBuilder()
+    .update()
+    .set(updated)
+    .where({ id: r_id })
+    .execute();
 };
 
-export const findRecruitByCmpId = async (cmp_id: number) => {
+export const findOneRecruit = async (cmp_id: number, r_id: number) => {
   // 수정이전 채용공고
   const before = await recruits
     .createQueryBuilder('recruit')
     .innerJoinAndSelect('recruit.company', 'company')
-    .where('company.id = :cmp_id', { cmp_id: cmp_id });
+    .where('company.id = :cmp_id', { cmp_id: cmp_id })
+    .andWhere('recruit.id = :r_id', { r_id: r_id })
+    .getOne();
 
   return before;
 };

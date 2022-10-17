@@ -1,7 +1,7 @@
 import { createNewRecruitReq } from '../repositories/repoParams/createNewRecruitReq';
 import {
   createNewRecruit,
-  findRecruitByCmpId,
+  findOneRecruit,
   updateRecruit,
   allRecruits,
   detailRecruit,
@@ -97,21 +97,48 @@ export const detailRecruitService = async (id: number) => {
 };
 
 export const updateRecruitService = async (
+  r_id: number,
   cmp_id: number,
   content?: string,
   position?: string,
   technique?: string,
   bonusMoney?: number,
 ) => {
-  const param = new updateRecruitReq();
-  param.position = position;
-  param.bonusMoney = bonusMoney;
-  param.content = content;
-  param.technique = technique;
-  param.cmp_id = cmp_id;
+  const updated = new updateRecruitReq();
+  let updateFlag = false; // 수정안됨으로 초기화
 
   // 수정이전 채용공고 찾기
-  const result = await findRecruitByCmpId(cmp_id);
-  //   const result = await updateRecruit(param);
+  const before = await findOneRecruit(cmp_id, r_id);
+
+  // content 가 수정됐는지 체크
+  if (before.content !== content) {
+    updated.content = content;
+    updateFlag = true;
+  }
+
+  // position 가 수정됐는지 체크
+  if (before.position !== position) {
+    updated.position = position;
+    updateFlag = true;
+  }
+
+  // technique 가 수정됐는지 체크
+  if (before.technique !== technique) {
+    updated.technique = technique;
+    updateFlag = true;
+  }
+
+  // bonusMoney 가 수정됐는제 체크
+  if (before.bonusMoney !== bonusMoney) {
+    updated.bonusMoney = bonusMoney;
+    updateFlag = true;
+  }
+
+  if (!updateFlag) {
+    // false => 수정안됨 상태라면 수정없이 리턴.
+    return;
+  }
+
+  const result = await updateRecruit(updated, r_id);
   return result;
 };

@@ -62,15 +62,18 @@ export const updateRecruit = async (
   next: NextFunction,
 ) => {
   try {
+    const { id } = req.params;
+
     const { position, bonusMoney, content, technique, cmp_id } = req.body;
     const result = await updateRecruitService(
+      parseInt(id, 10),
       cmp_id,
       content,
       position,
       technique,
       bonusMoney,
     );
-    return res.status(200).json(result);
+    return res.status(203).json();
   } catch (error) {
     console.error(error);
     res.status(400).send(error);
