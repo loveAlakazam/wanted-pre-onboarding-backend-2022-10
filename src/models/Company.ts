@@ -8,7 +8,10 @@ import {
 } from 'sequelize-typescript';
 import Recruit from './Recruit';
 
-@Table
+@Table({
+  timestamps: false,
+  tableName: 'companies',
+})
 class Company extends Model {
   @AutoIncrement
   @PrimaryKey

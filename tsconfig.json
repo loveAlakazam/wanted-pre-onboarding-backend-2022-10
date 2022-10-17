@@ -4,6 +4,8 @@
   "exclude": ["node_modules", "test"],
   "compilerOptions": {
     "module": "commonjs",
+    "moduleResolution": "node",
+    "lib": ["dom"],
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,

@@ -5,9 +5,11 @@ import {
   AllowNull,
   AutoIncrement,
   PrimaryKey,
+  HasMany,
 } from 'sequelize-typescript';
+import Recruit from './Recruit';
 
-@Table
+@Table({ timestamps: false, tableName: 'users' })
 class User extends Model {
   @AutoIncrement
   @PrimaryKey
@@ -17,6 +19,10 @@ class User extends Model {
   @Column
   @AllowNull(false)
   name: string; // 지원자 이름
+
+  // 지원한 채용공고
+  @HasMany(() => Recruit)
+  recruits: Recruit[];
 }
 
 export default User;

@@ -13,9 +13,10 @@ import {
   Default,
 } from 'sequelize-typescript';
 import Company from './Company';
+import User from './User';
 
 // 채용공고 모델
-@Table({ timestamps: true })
+@Table({ timestamps: true, tableName: 'recruits' })
 class Recruit extends Model {
   @AutoIncrement
   @PrimaryKey
@@ -46,10 +47,18 @@ class Recruit extends Model {
   // 회사 아이디 (FK)
   @ForeignKey(() => Company)
   @Column
-  cmpId: number;
+  cmpId!: number;
 
   @BelongsTo(() => Company)
   company: Company;
+
+  // 지원한 유저 아이디 (FK)
+  @ForeignKey(() => User)
+  @Column
+  userId!: number;
+
+  @BelongsTo(() => User)
+  user: User;
 }
 
 export default Recruit;
