@@ -15,7 +15,7 @@ export const getAllUser = async (
 ) => {
   try {
     const users = await getAllUserService();
-    return res.status(200).send(users);
+    return res.status(200).json(users);
   } catch (error) {
     console.error(error);
     res.status(400).send(error);
@@ -33,7 +33,7 @@ export const getUserById = async (
   try {
     const id = req.params;
     const user = await getUserByIdService(id);
-    return res.status(200).send(user);
+    return res.status(200).json(user);
   } catch (error) {
     console.error(error);
     res.status(400).send(error);
@@ -51,8 +51,8 @@ export const createUser = async (
   try {
     const { name } = req.body;
     console.log(name);
-    await createUserService(name);
-    return res.status(200).send('OK');
+    const result = await createUserService(name);
+    return res.status(200).json(result);
   } catch (error) {
     console.error(error);
     res.status(400).send(error);

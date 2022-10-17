@@ -5,7 +5,7 @@ import companyRouter from './company';
 
 const router = Router();
 router.use('/user', userRouter);
-router.use('/recruit', companyRouter);
-router.use('/job', recruitRouter);
+router.use('/company', companyRouter);
+router.use('/recruit', recruitRouter);
 
 export default router;
