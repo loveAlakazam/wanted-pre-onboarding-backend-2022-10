@@ -139,6 +139,5 @@ export const updateRecruitService = async (
     return;
   }
 
-  const result = await updateRecruit(updated, r_id);
-  return result;
+  await updateRecruit(updated, r_id);
 };

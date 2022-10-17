@@ -65,7 +65,7 @@ export const updateRecruit = async (
     const { id } = req.params;
 
     const { position, bonusMoney, content, technique, cmp_id } = req.body;
-    const result = await updateRecruitService(
+    await updateRecruitService(
       parseInt(id, 10),
       cmp_id,
       content,
