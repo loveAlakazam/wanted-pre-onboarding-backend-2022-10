@@ -1,13 +1,23 @@
-import sequelize from '../../configs/database';
 import { createUser, getAllUser, getUserById } from '../userRepository';
 import { User } from '../../models/User.entity';
-import dotenv from 'dotenv';
-dotenv.config();
+import { Company } from '../../models/Company.entity';
+import { Recruit } from '../../models/Recruit.entity';
+import { DataSource } from 'typeorm';
 
 describe('userRepositoryTest', () => {
   beforeAll(async () => {
-    await sequelize
-      .authenticate()
+    await new DataSource({
+      type: 'mysql',
+      host: process.env.SERVER_HOST,
+      port: parseInt(process.env.SERVER_PORT, 10),
+      database: process.env.DB_NAME,
+      username: process.env.DB_USER,
+      password: process.env.DB_PWD,
+      synchronize: true,
+      entities: [User, Company, Recruit],
+      logging: false,
+    })
+      .initialize()
       .then(() => {
         console.log('✅ Connect Database Successfully');
       })
