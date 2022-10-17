@@ -1,11 +1,14 @@
 import { Recruit } from '../models/Recruit.entity';
 import { Company } from '../models/Company.entity';
 import dataSource from '../configs/database';
-import { createNewRecruitRequestParam } from './repoParams/createNewRecruitReq';
+
+import { updateRecruitReq } from './repoParams/updateRecruitReq';
+import { createNewRecruitReq } from './repoParams/createNewRecruitReq';
 
 const recruits = dataSource.getRepository(Recruit);
 const companies = dataSource.getRepository(Company);
-export const createNewRecruit = async (param: createNewRecruitRequestParam) => {
+
+export const createNewRecruit = async (param: createNewRecruitReq) => {
   const r = new Recruit();
   r.position = param.position; //채용포지션
   r.bonusMoney = param.bonusMoney; //채용보상금
@@ -22,5 +25,51 @@ export const createNewRecruit = async (param: createNewRecruitRequestParam) => {
 
   // 채용공고 등록
   const result = recruits.save(r);
+  return result;
+};
+
+export const updateRecruit = async (param: updateRecruitReq) => {
+  // 수정할 채용공고
+  // const ur = new Recruit();
+  // ur.position = param.position;
+  // ur.bonusMoney = param.position;
+};
+
+export const findRecruitByCmpId = async (cmp_id: number) => {
+  // 수정이전 채용공고
+  const before = await recruits
+    .createQueryBuilder('recruit')
+    .innerJoinAndSelect('recruit.company', 'company')
+    .where('company.id = :cmp_id', { cmp_id: cmp_id });
+
+  return before;
+};
+
+export const allRecruits = async () => {
+  const result = await recruits
+    .createQueryBuilder('recruit')
+    .innerJoinAndSelect('recruit.company', 'company')
+    .getMany();
+  return result;
+};
+
+export const detailRecruit = async (r_id: number) => {
+  const result = await recruits
+    .createQueryBuilder('recruit')
+    .innerJoinAndSelect('recruit.company', 'company')
+    .where('recruit.id = :id', { id: r_id })
+    .getOne();
+  return result;
+};
+
+export const getOtherRecruits = async (cmp_id: number, r_id: number) => {
+  //현재 공고를 제외한 나머지 공고를 구한다.
+  const result = await recruits
+    .createQueryBuilder('recruit')
+    .innerJoinAndSelect('recruit.company', 'company')
+    .where('company.id = :cmp_id', { cmp_id: cmp_id })
+    .andWhere('recruit.id != :r_id', { r_id: r_id })
+    .getMany();
+
   return result;
 };

@@ -28,6 +28,7 @@ export class Recruit {
 
   @Column()
   technique: string; // 사용기술
+
   @CreateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
