@@ -1,5 +1,8 @@
-import { Sequelize } from 'sequelize';
+import { DataSource } from 'typeorm';
 import config from '../configs';
+import { User } from '../models/User.entity';
+import { Recruit } from '../models/Recruit.entity';
+import { Company } from '../models/Company.entity';
 
 const dbHost = config.dbHost;
 const dbPort = config.dbPort;
@@ -7,25 +10,17 @@ const dbName = config.dbName;
 const dbUser = config.dbUser;
 const dbPwd = config.dbPwd;
 
-const connectDB = new Sequelize(dbName, dbUser, dbPwd, {
+const connectDB = new DataSource({
+  type: 'mysql',
   host: dbHost,
-  dialect: 'mysql',
   port: dbPort,
-  define: {
-    charset: 'utf8mb4',
-    collate: 'utf8mb4_general_ci',
-    freezeTableName: true,
-  },
-  logQueryParameters: process.env.NODE_ENV === 'development',
-  logging: (query) => {
-    console.log(query);
-  },
-  pool: {
-    max: 30,
-    min: 0,
-    acquire: 30000, // 30초 동안 db연결 실패시 에러발생
-    idle: 10000,
-  },
+  database: dbName,
+  username: dbUser,
+  password: dbPwd,
+  synchronize: true,
+  // entities: [__dirname + '/../**/*.entity.{.js,.ts}'],
+  entities: [User, Recruit, Company],
+  logging: true,
 });
 
 export default connectDB;

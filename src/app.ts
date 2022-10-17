@@ -6,6 +6,9 @@ import configs from './configs';
 import connectDB from './configs/database';
 import { exit } from 'process';
 import router from './routers';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -22,16 +25,18 @@ const port = configs.port;
 app
   .listen(port, async () => {
     // mysql connect
-    await connectDB
-      .authenticate()
-      .then(() => {
-        console.log('✅ Connect Database Successfully');
-      })
-      .catch((err) => {
-        console.log('❌ Connect Database Failed');
-        console.error(err);
-        exit(1);
-      });
+    if (process.env.NODE_ENV !== 'test') {
+      await connectDB
+        .initialize()
+        .then(() => {
+          console.log('✅ Connect Database Successfully');
+        })
+        .catch((err) => {
+          console.log('❌ Connect Database Failed');
+          console.error(err);
+          exit(1);
+        });
+    }
     console.log(`Server listening on port at ${port}`);
   })
   .on('error', (err) => {
