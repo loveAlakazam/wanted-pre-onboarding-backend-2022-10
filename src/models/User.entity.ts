@@ -10,6 +10,8 @@ export class User {
   name!: string; // 지원자 이름
 
   // 지원한 채용공고
-  @OneToMany((type) => Recruit, (recruit) => recruit.user)
+  @OneToMany((type) => Recruit, (recruit) => recruit.user, {
+    cascade: true, //회원탈퇴시 -> 지원한 공고에 제외.
+  })
   recruits: Recruit[];
 }

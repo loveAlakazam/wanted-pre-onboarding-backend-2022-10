@@ -42,10 +42,13 @@ export class Recruit {
   updatedAt: Date;
 
   // 회사 아이디 (FK)
-  @ManyToOne((type) => Company, (company) => company.recruits)
+  @ManyToOne((type) => Company, (company) => company.recruits, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   company: Company;
 
   // 지원한 유저 아이디 (FK)
-  @ManyToOne((type) => User, (user) => user.recruits)
+  @ManyToOne((type) => User, (user) => user.recruits, { onDelete: 'CASCADE' })
   user: User;
 }
