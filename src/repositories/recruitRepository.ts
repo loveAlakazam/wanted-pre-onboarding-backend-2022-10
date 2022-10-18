@@ -53,6 +53,11 @@ export const findOneRecruit = async (cmp_id: number, r_id: number) => {
   return before;
 };
 
+export const findOneRecruitById = async (r_id: number) => {
+  const result = await recruits.findOneBy({ id: r_id });
+  return result;
+};
+
 export const allRecruits = async () => {
   const result = await recruits
     .createQueryBuilder('recruit')

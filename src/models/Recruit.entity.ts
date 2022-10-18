@@ -7,6 +7,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn,
+  ManyToMany,
 } from 'typeorm';
 import { Company } from './Company.entity';
 import { User } from './User.entity';
@@ -48,7 +49,7 @@ export class Recruit {
   })
   company: Company;
 
-  // 지원한 유저 아이디 (FK)
-  @ManyToOne((type) => User, (user) => user.recruits, { onDelete: 'CASCADE' })
-  user: User;
+  // // 지원한 유저 아이디 (FK)
+  // @ManyToMany((type) => User, (user) => user.recruits, { onDelete: 'CASCADE' })
+  // user: User;
 }
