@@ -12,6 +12,7 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "target": "es2017",
+    "noEmitOnError": true,
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
