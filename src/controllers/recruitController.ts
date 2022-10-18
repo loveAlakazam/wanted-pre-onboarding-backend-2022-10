@@ -1,9 +1,10 @@
-import { Request, Response, NextFunction, response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import {
   createNewRecruitService,
   updateRecruitService,
   allRecruitsService,
   detailRecruitService,
+  deleteRecruitService,
 } from '../services/recruitService';
 export const createNewRecruit = async (
   req: Request,
@@ -65,7 +66,7 @@ export const updateRecruit = async (
     const { id } = req.params;
 
     const { position, bonusMoney, content, technique, cmp_id } = req.body;
-    const result = await updateRecruitService(
+    await updateRecruitService(
       parseInt(id, 10),
       cmp_id,
       content,
@@ -73,6 +74,21 @@ export const updateRecruit = async (
       technique,
       bonusMoney,
     );
+    return res.status(203).json();
+  } catch (error) {
+    console.error(error);
+    res.status(400).send(error);
+  }
+};
+
+export const deleteRecruit = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { id } = req.params;
+    await deleteRecruitService(parseInt(id, 10));
     return res.status(203).json();
   } catch (error) {
     console.error(error);

@@ -12,18 +12,11 @@
       "label": "tsc build - tsconfig.json"
     },
     {
-      "type": "npm",
-      "script": "prestart",
-      "problemMatcher": [],
-      "label": "npm: prestart",
-      "detail": "tsc"
-    },
-    {
-      "type": "npm",
-      "script": "start",
-      "problemMatcher": [],
-      "label": "start",
-      "detail": "nodemon --exec ts-node dist/app.js"
+      "type": "typescript",
+      "tsconfig": "tsconfig.json",
+      "option": "watch",
+      "problemMatcher": ["$tsc-watch"],
+      "group": "build"
     }
   ]
 }

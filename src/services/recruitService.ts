@@ -6,7 +6,8 @@ import {
   allRecruits,
   detailRecruit,
   getOtherRecruits,
-} from '../repositories/recuitRepository';
+  deleteRecruit,
+} from '../repositories/recruitRepository';
 import { updateRecruitReq } from '../repositories/repoParams/updateRecruitReq';
 import {
   RecruitmentData,
@@ -139,6 +140,9 @@ export const updateRecruitService = async (
     return;
   }
 
-  const result = await updateRecruit(updated, r_id);
-  return result;
+  await updateRecruit(updated, r_id);
+};
+
+export const deleteRecruitService = async (r_id: number) => {
+  return await deleteRecruit(r_id);
 };

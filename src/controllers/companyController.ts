@@ -3,6 +3,7 @@ import {
   createCompanyService,
   getAllCompaniesService,
   getCompanyByIdService,
+  deleteCompanyService,
 } from '../services/companyService';
 
 /**
@@ -50,5 +51,20 @@ export const getCompanyById = async (
   } catch (error) {
     console.error(error);
     res.status(400).send(error);
+  }
+};
+
+export const deleteCompany = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { id } = req.params;
+    await deleteCompanyService(parseInt(id, 10));
+    return res.status(203).json();
+  } catch (error) {
+    console.error(error);
+    return res.status(400).send(error);
   }
 };

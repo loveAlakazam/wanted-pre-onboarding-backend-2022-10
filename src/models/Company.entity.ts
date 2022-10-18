@@ -22,6 +22,8 @@ export class Company {
   location: string; //지역
 
   // 회사가 올린 채용공고
-  @OneToMany((type) => Recruit, (recruit) => recruit.company)
+  @OneToMany((type) => Recruit, (recruit) => recruit.company, {
+    cascade: true, // 회사 삭제시 - 등록한 채용공고도 같이삭제.
+  })
   recruits: Recruit[];
 }

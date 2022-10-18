@@ -18,7 +18,16 @@ export const getAllCompanies = async () => {
   return _companies;
 };
 
-export const getCompanyById = async (cmpId: number) => {
-  const _company = await companies.findOneBy({ id: cmpId });
+export const getCompanyById = async (cmp_id: number) => {
+  const _company = await companies.findOneBy({ id: cmp_id });
   return _company;
+};
+
+export const deleteCompany = async (cmp_id: number) => {
+  return await companies
+    .createQueryBuilder()
+    .delete()
+    .from(Company)
+    .where('id = :cmp_id', { cmp_id: cmp_id })
+    .execute();
 };
