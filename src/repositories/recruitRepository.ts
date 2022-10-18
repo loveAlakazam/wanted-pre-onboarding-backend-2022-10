@@ -81,3 +81,12 @@ export const getOtherRecruits = async (cmp_id: number, r_id: number) => {
 
   return result;
 };
+
+export const deleteRecruit = async (r_id: number) => {
+  return await recruits
+    .createQueryBuilder()
+    .delete()
+    .from(Recruit)
+    .where('id = :r_id', { r_id: r_id })
+    .execute();
+};
