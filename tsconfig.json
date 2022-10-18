@@ -1,0 +1,31 @@
+{
+  "ts-node": { "files": true },
+  "include": [".eslintrc.js", "./src/**/*"],
+  "exclude": ["node_modules", "test"],
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "lib": ["dom"],
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "noEmitOnError": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": false,
+    "typeRoots": ["./src/@types", "./node_modules/@types"],
+    "strict": true,
+    "esModuleInterop": true,
+    "allowJs": true
+  }
+}
