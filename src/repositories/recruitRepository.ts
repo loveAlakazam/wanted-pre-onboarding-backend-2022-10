@@ -90,3 +90,17 @@ export const deleteRecruit = async (r_id: number) => {
     .where('id = :r_id', { r_id: r_id })
     .execute();
 };
+
+export const searchRecruits = async (searchKey: string) => {
+  const result = await recruits
+    .createQueryBuilder('recruit')
+    .innerJoinAndSelect('recruit.company', 'company')
+    .where('company.name like :key', { key: `%${searchKey}%` }) //회사명
+    .orWhere('company.country like :key', { key: `%${searchKey}%` }) //국가
+    .orWhere('company.location like :key', { key: `%${searchKey}%` }) //지역
+    .orWhere('technique like :key', { key: `%${searchKey}%` }) //사용기술
+    .orWhere('position like :key', { key: `%${searchKey}%` }) //채용포지션
+    .getMany();
+
+  return result;
+};
