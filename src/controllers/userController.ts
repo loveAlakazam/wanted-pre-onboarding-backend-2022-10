@@ -3,6 +3,7 @@ import {
   createUserService,
   getAllUserService,
   getUserByIdService,
+  applyRecruitService,
 } from '../services/userService';
 
 /**
@@ -56,5 +57,26 @@ export const createUser = async (
   } catch (error) {
     console.error(error);
     res.status(400).send(error);
+  }
+};
+
+export const applyRecruit = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    // u_id: 사용자 아이디
+    // r_id: 채용공고 아이디
+    const { r_id, u_id } = req.body;
+
+    const result = await applyRecruitService(
+      parseInt(u_id),
+      parseInt(r_id, 10),
+    );
+    return res.status(200).json(result); //사용자가 지원한 공고리스트를 리턴한다.
+  } catch (error) {
+    console.error(error);
+    return res.status(400).send(error);
   }
 };

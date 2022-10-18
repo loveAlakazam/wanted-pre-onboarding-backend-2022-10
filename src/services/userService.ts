@@ -2,6 +2,9 @@ import {
   createUser,
   getAllUser,
   getUserById,
+  checkApplyRecruit,
+  applyRecruit,
+  getUserAppliedList,
 } from '../repositories/userRepository';
 
 export const createUserService = async (name: any) => {
@@ -20,4 +23,23 @@ export const getUserByIdService = async (id: any) => {
     return await getUserById(id);
   }
   throw new Error('Not Correct Type');
+};
+
+export const applyRecruitService = async (uid: number, rid: number) => {
+  if (isNaN(rid) || isNaN(uid)) {
+    throw new Error('rid or uid is NaN');
+  }
+
+  // 지원 신청이 되었는지 확인
+  const isApply = await checkApplyRecruit(uid, rid);
+  if (isApply) {
+    throw new Error('이미 지원하셨습니다.');
+  }
+
+  // 지원
+  await applyRecruit(uid, rid);
+
+  // 지원자가 지원한 공고들을 모두 뿌려준다.
+  const result = await getUserAppliedList(uid);
+  return result;
 };

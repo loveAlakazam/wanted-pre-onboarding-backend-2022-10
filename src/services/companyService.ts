@@ -1,10 +1,11 @@
-import { createNewCompanyReq } from '../repositories/repoParams/createNewCompanyReq';
 import {
   createCompany,
   deleteCompany,
   getAllCompanies,
   getCompanyById,
 } from '../repositories/companyRepository';
+
+import { createNewCompanyReq } from '../repositories/repoParams/createNewCompanyReq';
 
 export const createCompanyService = async (
   name: string,

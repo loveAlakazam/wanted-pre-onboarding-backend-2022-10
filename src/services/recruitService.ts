@@ -145,6 +145,10 @@ export const updateRecruitService = async (
 };
 
 export const deleteRecruitService = async (r_id: number) => {
+  if (isNaN(r_id)) {
+    throw new Error('NaN Error');
+  }
+
   return await deleteRecruit(r_id);
 };
 
