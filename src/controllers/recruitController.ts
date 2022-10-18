@@ -5,6 +5,7 @@ import {
   allRecruitsService,
   detailRecruitService,
   deleteRecruitService,
+  searchRecruitsService,
 } from '../services/recruitService';
 export const createNewRecruit = async (
   req: Request,
@@ -93,5 +94,20 @@ export const deleteRecruit = async (
   } catch (error) {
     console.error(error);
     res.status(400).send(error);
+  }
+};
+
+export const searchRecruits = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { search } = req.query;
+    const result = await searchRecruitsService(search);
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    return res.status(400).send(error);
   }
 };

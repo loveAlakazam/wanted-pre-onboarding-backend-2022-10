@@ -7,6 +7,7 @@ import {
   detailRecruit,
   getOtherRecruits,
   deleteRecruit,
+  searchRecruits,
 } from '../repositories/recruitRepository';
 import { updateRecruitReq } from '../repositories/repoParams/updateRecruitReq';
 import {
@@ -145,4 +146,25 @@ export const updateRecruitService = async (
 
 export const deleteRecruitService = async (r_id: number) => {
   return await deleteRecruit(r_id);
+};
+
+export const searchRecruitsService = async (searchKey: any) => {
+  const _result = await searchRecruits(searchKey);
+
+  const result = await Promise.all(
+    _result.map((r) => {
+      const recruit = new RecruitmentData(
+        r.id,
+        r.company.name,
+        r.company.country,
+        r.company.location,
+        r.position,
+        r.bonusMoney,
+        r.technique,
+      );
+      return recruit;
+    }),
+  );
+
+  return result;
 };
