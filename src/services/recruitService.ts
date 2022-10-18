@@ -89,6 +89,7 @@ export const detailRecruitService = async (id: number) => {
     _result.position,
     _result.bonusMoney,
     _result.technique,
+    _result.content,
   );
 
   // 회사가 올린 다른 채용공고의 아이디들을 구한다.
