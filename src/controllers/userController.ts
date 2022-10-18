@@ -18,8 +18,7 @@ export const getAllUser = async (
     const users = await getAllUserService();
     return res.status(200).json(users);
   } catch (error) {
-    console.error(error);
-    res.status(400).send(error);
+    next(error);
   }
 };
 
@@ -36,8 +35,7 @@ export const getUserById = async (
     const user = await getUserByIdService(id);
     return res.status(200).json(user);
   } catch (error) {
-    console.error(error);
-    res.status(400).send(error);
+    next(error);
   }
 };
 
@@ -55,8 +53,7 @@ export const createUser = async (
     const result = await createUserService(name);
     return res.status(200).json(result);
   } catch (error) {
-    console.error(error);
-    res.status(400).send(error);
+    next(error);
   }
 };
 
@@ -76,7 +73,6 @@ export const applyRecruit = async (
     );
     return res.status(200).json(result); //사용자가 지원한 공고리스트를 리턴한다.
   } catch (error) {
-    console.error(error);
-    return res.status(400).send(error);
+    next(error);
   }
 };

@@ -7,11 +7,16 @@ import {
   getUserAppliedList,
 } from '../repositories/userRepository';
 
+import {
+  IllegalArgumentException,
+  DataAlreadyExistsException,
+} from '../commons/exceptions';
+
 export const createUserService = async (name: any) => {
   if (typeof name === 'string') {
     return await createUser(name);
   }
-  throw new Error('Not Correct Type');
+  throw new IllegalArgumentException('Not Correct Type');
 };
 
 export const getAllUserService = async () => {
@@ -22,18 +27,18 @@ export const getUserByIdService = async (id: any) => {
   if (typeof id === 'number' && id !== 0) {
     return await getUserById(id);
   }
-  throw new Error('Not Correct Type');
+  throw new IllegalArgumentException('Not Correct Type');
 };
 
 export const applyRecruitService = async (uid: number, rid: number) => {
   if (isNaN(rid) || isNaN(uid)) {
-    throw new Error('rid or uid is NaN');
+    throw new IllegalArgumentException('rid or uid is NaN');
   }
 
   // 지원 신청이 되었는지 확인
   const isApply = await checkApplyRecruit(uid, rid);
   if (isApply) {
-    throw new Error('이미 지원하셨습니다.');
+    throw new DataAlreadyExistsException('이미 지원하셨습니다.');
   }
 
   // 지원
