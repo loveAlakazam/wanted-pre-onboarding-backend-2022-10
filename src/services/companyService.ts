@@ -1,6 +1,7 @@
 import { createNewCompanyReq } from '../repositories/repoParams/createNewCompanyReq';
 import {
   createCompany,
+  deleteCompany,
   getAllCompanies,
   getCompanyById,
 } from '../repositories/companyRepository';
@@ -29,4 +30,8 @@ export const getCompanyByIdService = async (id: number) => {
     return await getCompanyById(id);
   }
   throw new Error('Not Correct Type');
+};
+
+export const deleteCompanyService = async (id: number) => {
+  return await deleteCompany(id);
 };
