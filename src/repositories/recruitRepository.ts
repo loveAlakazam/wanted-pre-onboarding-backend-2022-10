@@ -1,6 +1,7 @@
 import { Recruit } from '../models/Recruit.entity';
 import { Company } from '../models/Company.entity';
 import dataSource from '../configs/database';
+import { DataNotFoundException } from '../commons/exceptions';
 
 import { updateRecruitReq } from './repoParams/updateRecruitReq';
 import { createNewRecruitReq } from './repoParams/createNewRecruitReq';
@@ -18,7 +19,7 @@ export const createNewRecruit = async (param: createNewRecruitReq) => {
   // 회사 id 에 해당하는 회사 찾기.
   const _company = await companies.findOneBy({ id: param.cmp_id });
   if (!_company) {
-    throw new Error('해당 id의 회사가 존재하지 않습니다.');
+    throw new DataNotFoundException('해당 id의 회사가 존재하지 않습니다.');
   }
 
   r.company = _company;

@@ -9,11 +9,18 @@ import {
   deleteRecruit,
   searchRecruits,
 } from '../repositories/recruitRepository';
+
 import { updateRecruitReq } from '../repositories/repoParams/updateRecruitReq';
+
 import {
   RecruitmentData,
   RecruitmentDetail,
 } from '../models/responseData/recruitResponse';
+
+import {
+  DataNotFoundException,
+  IllegalArgumentException,
+} from '../commons/exceptions';
 
 export const createNewRecruitService = async (
   cmp_id: number,
@@ -67,7 +74,7 @@ export const allRecruitsService = async () => {
 export const detailRecruitService = async (id: number) => {
   const _result = await detailRecruit(id);
   if (!_result) {
-    throw new Error('id에 맞는 회사가 존재하지 않습니다.');
+    throw new DataNotFoundException('id에 맞는 회사가 존재하지 않습니다.');
   }
 
   // 회사가 올린 다른 채용공고를 구한다.
@@ -82,6 +89,7 @@ export const detailRecruitService = async (id: number) => {
     _result.position,
     _result.bonusMoney,
     _result.technique,
+    _result.content,
   );
 
   // 회사가 올린 다른 채용공고의 아이디들을 구한다.
@@ -146,7 +154,7 @@ export const updateRecruitService = async (
 
 export const deleteRecruitService = async (r_id: number) => {
   if (isNaN(r_id)) {
-    throw new Error('NaN Error');
+    throw new IllegalArgumentException('NaN Error');
   }
 
   return await deleteRecruit(r_id);

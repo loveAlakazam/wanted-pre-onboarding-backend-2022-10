@@ -24,8 +24,7 @@ export const createNewRecruit = async (
 
     return res.status(200).json(result);
   } catch (error) {
-    console.error(error);
-    res.status(400).send(error);
+    next(error);
   }
 };
 
@@ -38,8 +37,7 @@ export const allRecruits = async (
     const result = await allRecruitsService();
     return res.status(200).json(result);
   } catch (error) {
-    console.error(error);
-    res.status(400).send(error);
+    next(error);
   }
 };
 
@@ -53,8 +51,7 @@ export const detailRecruit = async (
     const result = await detailRecruitService(parseInt(id, 10));
     return res.status(200).json(result);
   } catch (error) {
-    console.error(error);
-    res.status(400).send(error);
+    next(error);
   }
 };
 
@@ -77,8 +74,7 @@ export const updateRecruit = async (
     );
     return res.status(203).json();
   } catch (error) {
-    console.error(error);
-    res.status(400).send(error);
+    next(error);
   }
 };
 
@@ -92,8 +88,7 @@ export const deleteRecruit = async (
     await deleteRecruitService(parseInt(id, 10));
     return res.status(203).json();
   } catch (error) {
-    console.error(error);
-    res.status(400).send(error);
+    next(error);
   }
 };
 
@@ -107,7 +102,6 @@ export const searchRecruits = async (
     const result = await searchRecruitsService(search);
     return res.status(200).json(result);
   } catch (error) {
-    console.error(error);
-    return res.status(400).send(error);
+    next(error);
   }
 };

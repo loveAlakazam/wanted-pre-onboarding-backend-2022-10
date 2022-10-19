@@ -7,6 +7,8 @@ import {
 
 import { createNewCompanyReq } from '../repositories/repoParams/createNewCompanyReq';
 
+import { IllegalArgumentException } from '../commons/exceptions';
+
 export const createCompanyService = async (
   name: string,
   location: string,
@@ -30,7 +32,7 @@ export const getCompanyByIdService = async (id: number) => {
   if (typeof id === 'number') {
     return await getCompanyById(id);
   }
-  throw new Error('Not Correct Type');
+  throw new IllegalArgumentException('Not Correct Type');
 };
 
 export const deleteCompanyService = async (id: number) => {

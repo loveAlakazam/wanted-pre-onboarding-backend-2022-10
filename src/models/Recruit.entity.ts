@@ -3,14 +3,11 @@ import {
   Column,
   Entity,
   ManyToOne,
-  PrimaryColumn,
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn,
-  ManyToMany,
 } from 'typeorm';
 import { Company } from './Company.entity';
-import { User } from './User.entity';
 
 // 채용공고 모델
 @Entity()
@@ -48,8 +45,4 @@ export class Recruit {
     onUpdate: 'CASCADE',
   })
   company: Company;
-
-  // // 지원한 유저 아이디 (FK)
-  // @ManyToMany((type) => User, (user) => user.recruits, { onDelete: 'CASCADE' })
-  // user: User;
 }
