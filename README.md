@@ -821,9 +821,105 @@ export const searchRecruits = async (searchKey: string) => {
 
 <br><br><br>
 
-### 통신테스트 데이터 결과
+## 통신테스트 데이터 결과
 
-<br><br><br>
+### 요구사항 (#1)
+
+> 채용공고 등록 성공
+
+![](./imgs/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD1_200.png)
+
+<br>
+
+> 채용공고 등록 실패 (존재하지 않은 기업id로 채용공고를 등록할 경우)
+
+![](./imgs/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD1_404.png)
+
+<br><br>
+
+### 요구사항 (#2)
+
+> 변경 이전
+
+![](./imgs/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD5_200.png)
+
+<br>
+
+> 변경 (포지션 + 채용보상금 + 내용 + 사용기술 모두 수정)
+
+- 포지션, 채용보상금, 채용보상금, 내용 다 각각 수정 가능합니다.
+
+![](./imgs/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD2_1.png)
+
+<br>
+
+> 변경이후
+
+![](./imgs/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD2_2.png)
+
+<br><br>
+
+### 요구사항 (#3)
+
+> 채용공고 삭제 성공
+
+- 회사와 채용공고는 1:N관계이고, 회사가 삭제되면 CASCADE 옵션을 추가함으로써 채용공고 또한 삭제처리가 됩니다.
+
+![](./imgs/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD3_203.png)
+
+<br><br>
+
+### 요구사항 (#4-1)
+
+![](./imgs/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD4_1.png)
+
+<br><br>
+
+### 요구사항 (#4-2)
+
+> "국가" 에 부합한 검색결과
+
+![](./imgs/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD4_2_%EA%B5%AD%EA%B0%80.png)
+
+<br>
+
+> "지역" 에 부합한 검색결과
+
+![](./imgs/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD4_2_%EC%A7%80%EC%97%AD.png)
+
+<br>
+
+> "회사명" 에 부합한 검색결과
+
+![](./imgs/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD4_2_%ED%9A%8C%EC%82%AC%EB%AA%85.png)
+
+<br>
+
+> "사용기술" 에 부합한 검색결과
+
+![](./imgs/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD4_2_%EC%82%AC%EC%9A%A9%EA%B8%B0%EC%88%A0.png)
+
+<br>
+
+> "포지션"에 부합한 검색결과
+
+![](./imgs/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD4_2_%ED%8F%AC%EC%A7%80%EC%85%98.png)
+
+<br>
+
+### 요구사항 (#5)
+
+> 채용공고가 존재할 경우 상세페이지
+
+![](./imgs/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD5_200.png)
+
+<br>
+
+> 채용공고가 존재하지 않을 경우
+
+![](./imgs/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD5_404.png)
+
+<br><br>
 
 ---
 
@@ -964,3 +1060,17 @@ export const getUserAppliedList = async (uid: number) => {
   return result;
 };
 ```
+
+<br><br>
+
+### 통신테스트 결과
+
+> 처음으로 지원했을 경우
+
+![](./imgs/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD6_200.png)
+
+<br><br>
+
+> 이미 지원한 경우
+
+![](./imgs/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD6_400.png)
